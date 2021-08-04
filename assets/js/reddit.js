@@ -10,7 +10,7 @@ function getRedditApi () {
 
 
   //THIS PATH DOES NOT YET HAVE AN S BECAUSE REDDIT CLAIMED IT DIDN"T WANT IT
-  var redditQueryUrl = "http://www.reddit.com/search.json?q=" + searchLocation + "&limit=" +searchLimit;
+  var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&limit=" +searchLimit;
 
 
 fetch(redditQueryUrl)
@@ -22,13 +22,16 @@ fetch(redditQueryUrl)
 
     console.log("title: ",data.data.children[0].data.title);
     console.log("url: ", data.data.children[0].data.url);
-    //Some posts do not have an image which leaves the preview parameter empty
-    console.log("image: ", data.data.children[3].data.preview.images[0].source.url);
     console.log("Description: ", data.data.children[0].data.selftext);
 
-    //Some posts do not have an image which leaves the preview parameter empty
+    //Some posts do not have an image which leaves the preview parameter empty so we only get the thumbnail image if it exists
     if(data.data.children[3].data.preview) {
-    console.log("image: ", data.data.children[3].data.preview.images[0].source.url);
+    //And of course it has to be encoded because internet so we can't use it unless we decoded it
+    var imageUrlEncoded = data.data.children[3].data.preview.images[0].source.url;
+    console.log("imageUrlEncoded: ", imageUrlEncoded);
+    var imageUrlDecoded = imageUrlEncoded.replace("amp;s", "s");
+    console.log("imageUrlDecoded: ", imageUrlDecoded);
+
     } else {
       console.log("no image");
     }
