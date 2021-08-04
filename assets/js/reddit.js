@@ -19,21 +19,22 @@ fetch(redditQueryUrl)
   })
   .then(function(data) {
     console.log(data.data.children);   // Logs the data to the console already cutting it down with the .data.children parameters
-
     console.log("title: ",data.data.children[0].data.title);
     console.log("url: ", data.data.children[0].data.url);
     console.log("Description: ", data.data.children[0].data.selftext);
 
     //Some posts do not have an image which leaves the preview parameter empty so we only get the thumbnail image if it exists
-    if(data.data.children[3].data.preview) {
-    //And of course it has to be encoded because internet so we can't use it unless we decoded it
-    var imageUrlEncoded = data.data.children[3].data.preview.images[0].source.url;
+    if(data.data.children[0].data.preview) {
+    //And of course it has to be encoded because internet so we can't use it unless we decoded it.  If we try to follow it we get a 403 error.
+    var imageUrlEncoded = data.data.children[0].data.preview.images[0].source.url;
     console.log("imageUrlEncoded: ", imageUrlEncoded);
+    //in order to decode we need to replace "amp;s" with "s"
     var imageUrlDecoded = imageUrlEncoded.replace("amp;s", "s");
+    //This url can now be used as a link
     console.log("imageUrlDecoded: ", imageUrlDecoded);
 
     } else {
-      console.log("no image");
+      console.log("reddit image: ", "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg");
     }
   })
   .catch(function(err) {
