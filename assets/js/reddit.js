@@ -1,3 +1,52 @@
+//this the start of the reddit fetches, they still use the init function called at the bottom
+
+var searchLocation = "Cochran Shoals";
+
+var searchLimit = 5;
+
+//var sortBy = 
+
+function getRedditApi () {
+
+
+  //THIS PATH DOES NOT YET HAVE AN S BECAUSE REDDIT CLAIMED IT DIDN"T WANT IT
+  var redditQueryUrl = "http://www.reddit.com/search.json?q=" + searchLocation + "&limit=" +searchLimit;
+
+
+fetch(redditQueryUrl)
+  .then(function(res) {
+    return res.json();   // Convert the data into JSON
+  })
+  .then(function(data) {
+    console.log(data.data.children);   // Logs the data to the console already cutting it down with the .data.children parameters
+
+    console.log("title: ",data.data.children[0].data.title);
+    console.log("url: ", data.data.children[0].data.url);
+    //Some posts do not have an image which leaves the preview parameter empty
+    console.log("image: ", data.data.children[3].data.preview.images[0].source.url);
+    console.log("Description: ", data.data.children[0].data.selftext);
+
+    //Some posts do not have an image which leaves the preview parameter empty
+    if(data.data.children[3].data.preview) {
+    console.log("image: ", data.data.children[3].data.preview.images[0].source.url);
+    } else {
+      console.log("no image");
+    }
+  })
+  .catch(function(err) {
+    console.log(err);   // Log error if any
+  });
+}
+
+// In the event something wants a no-cors whatever, try this
+// header parameters
+// fetch(url, {
+//   mode: 'no-cors'
+// }).then
+
+
+//This is the start of the gov rec fetches
+
 //city and activity variables
 var city = "Atlanta";
 var activity = "Hiking";
@@ -92,9 +141,12 @@ fetch(recGovQueryUrl)
 
 
 function init (){
-    getRecGovApiUsingCity();
-    getRecGovApiUsingLatLong();
-    getRecGovApiUsingState();
+  getRedditApi ();
+
+  //The three fetches below are for govrec data, turned off while I focus on reddit
+   // getRecGovApiUsingCity();
+   // getRecGovApiUsingLatLong();
+   // getRecGovApiUsingState();
 }
 
 // calls init on page load
