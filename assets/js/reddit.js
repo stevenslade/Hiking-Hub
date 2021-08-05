@@ -1,6 +1,13 @@
 //Variables for dynamic HTML
 //Don't need any yet
 
+//Content to display time - Need a moment library link and an anchor point
+//var datetime = document.querySelector('#currentDay');
+
+//var date = moment(new Date())
+//datetime.textContent = (date.format('dddd, MMMM Do YYYY'));
+
+
 //Start of the reddit fetch, they still use the init function called at the bottom
 
 //Location for which to search Reddit, this will need to be collected from the
@@ -23,17 +30,31 @@ var keyWord = "";
 
 
 function createAppendReddit () {
-  // make variables of dataset items - currently placeholders
+  // make variables of dataset items - currently hardcoded placeholders
+  var image = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg"
   var title = "Title";
-  var 
+  var description = "Description";
+  var link = "https://www.reddit.com/r/whatsthissnake/comments/o76zo7/2_snakes_seen_on_a_trail_on_cochran_shoals/"
 
+  //create the container and card elements
+  var redditContainer = document.createElement("div");
+  var redditCard = document.createElement("div") 
   //create the elements for each dataset item
-
+  var cardTitle = document.createElement("h4");
+  
   //append the dataset elements to a container
+  redditContainer.append(redditCard);
+  redditCard.append(cardTitle);
+
+  //assign content to the html elements
+  cardTitle.textContent = title;
 
   //attach a class to the container
+  //need to attach a class to redditContainer
+  //redditContainer.setAttribute('class', "redditContainer");
 
   //attach the container to the anchor point "reddit"
+  reddit.append(redditContainer);
 
 }
 
@@ -82,6 +103,9 @@ fetch(redditQueryUrl)
   .catch(function(err) {
     console.log(err);   // Log error if any
   });
+
+  //After fetching from the api endpoints, run the function to create and append the data
+  createAppendReddit ()
 }
 
 // In the event something wants a no-cors whatever, try this
