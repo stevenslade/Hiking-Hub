@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +14,9 @@
     <link href="/assets/css/style.css" rel="stylesheet">
 
 </head>
+
 <body>
+
   <nav class="nav-extended green darken-2">
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo center">Hiking Hub</a>
@@ -82,12 +86,16 @@
         </div>
     </div>
 </div>
-          <div id = "google"><button class = "searchReddit"></button></div>
-          <div id = "reddit"></div>
-          <script src="./assets/js/script.js"></script>
-          <script src="./assets/js/reddit.js"></script>
-          <script src="./assets/js/google.js"></script>
-  </main>
+ 
+  <div id="google"><button class="searchReddit"></button></div>
+  <div id="map"></div>
+  <div id="places"></div>
+  <div id="reddit"></div>
+  <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/reddit.js"></script>
+  <script src="./assets/js/google.js"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4mnJeTWSHxIamtQ3v_Cf2zo9kvadCLs0&libraries=places&callback=findLocationFromPlaces"></script>
+
 </body>
 
 </html>
