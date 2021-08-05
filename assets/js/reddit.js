@@ -1,9 +1,16 @@
-//this the start of the reddit fetches, they still use the init function called at the bottom
+//Variables for dynamic HTML
+//Don't need any yet
 
+//Start of the reddit fetch, they still use the init function called at the bottom
+
+//Location for which to search Reddit, this will need to be collected from the
+//user choosing an item returned by google 
 var searchLocation = "Cochran Shoals";
 
+//Limits search return to specified number of items, can be 5, 10, 25
 var searchLimit = 5;
 
+//Allows use of keyword, this would be user input on html
 var keyWord = "";
 
 //REMOVE FOR PRODUCTION
@@ -11,8 +18,24 @@ var keyWord = "";
 
 //not yet using the sort by feature, have the option to use one of  (relevance, hot, top, new, comments)
 //var sortBy = 
-//If we choose to use the sort by option, it woudl look like this
+//If we choose to use the sort by option, it would look like this
 //var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&sort=" + sortBy + "&limit=" +searchLimit;
+
+
+function createAppendReddit () {
+  // make variables of dataset items - currently placeholders
+  var title = "Title";
+  var 
+
+  //create the elements for each dataset item
+
+  //append the dataset elements to a container
+
+  //attach a class to the container
+
+  //attach the container to the anchor point "reddit"
+
+}
 
 function getRedditApi () {
 
@@ -53,12 +76,6 @@ fetch(redditQueryUrl)
     console.log("imageUrlDecoded: ", imageUrlDecoded);
     } else {
       console.log("reddit image: ", "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg");
-    
-    
-    
-    
-    
-    
     
     }
   })
