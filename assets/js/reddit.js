@@ -1,10 +1,11 @@
 //Variables for dynamic HTML
 //All HTML variables are currentlymade in functions
 
-//The reddit portion does have three globally scoped variables below
+//The reddit portion does have four globally scoped variables declared below
 //searchLocation
 //searchLimit
 //keyWord
+//sortBy
 
 //Content to display time - Need a moment library link and an anchor point
 //var datetime = document.querySelector('#currentDay');
@@ -29,8 +30,8 @@
 function createAppendReddit () {
   // make variables of dataset items - currently hardcoded placeholders
   var image = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg";
-  var title = "Title";
-  var description = "Description";
+  var title = "This will be a Title";
+  var description = "People are going to be talking about how great the title above is";
   var link = "https://www.reddit.com/r/whatsthissnake/comments/o76zo7/2_snakes_seen_on_a_trail_on_cochran_shoals/";
 
   //create the container and card elements
@@ -68,6 +69,8 @@ function createAppendReddit () {
 
   //attach classes to the elements -ALL THESE CSS CLASSES ARE FOR USE WITH TAILWIND
   //need to attach all the tailwind classes for formatting
+  //setAttribute will set the class and over right any existing class
+  //element.classList.add("someclass") will add a new class to the existing 
   //redditContainer.setAttribute('class', "redditContainer");
 
   //attach the container to the HTML anchor point "reddit"
@@ -134,6 +137,7 @@ fetch(redditQueryUrl)
     //This url can now be used as a link to display an image
     console.log("imageUrlDecoded: ", imageUrlDecoded);
     } else {
+      
       console.log("reddit image: ", "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg");
     
     }
