@@ -1,5 +1,10 @@
 //Variables for dynamic HTML
-//Don't need any yet
+//All HTML variables are currentlymade in functions
+
+//The reddit portion does have three globally scoped variables below
+//searchLocation
+//searchLimit
+//keyWord
 
 //Content to display time - Need a moment library link and an anchor point
 //var datetime = document.querySelector('#currentDay');
@@ -7,7 +12,7 @@
 //var date = moment(new Date())
 //datetime.textContent = (date.format('dddd, MMMM Do YYYY'));
 
-//This is a sample of tailwind css for pretty much what I am trying to do 
+//This is a sample of tailwind css for pretty much what I am trying to do, I will copy this formatting
 {/* <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"></div>  //This is my redditContainer
   <div class="md:flex">  //This is my redditCard
     <div class="md:flex-shrink-0">  //This is my redditImageCard
@@ -23,10 +28,10 @@
 
 function createAppendReddit () {
   // make variables of dataset items - currently hardcoded placeholders
-  var image = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg"
+  var image = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg";
   var title = "Title";
   var description = "Description";
-  var link = "https://www.reddit.com/r/whatsthissnake/comments/o76zo7/2_snakes_seen_on_a_trail_on_cochran_shoals/"
+  var link = "https://www.reddit.com/r/whatsthissnake/comments/o76zo7/2_snakes_seen_on_a_trail_on_cochran_shoals/";
 
   //create the container and card elements
   var redditContainer = document.createElement("div");
@@ -36,8 +41,8 @@ function createAppendReddit () {
   //create the elements for each dataset item
   var redditCardTitle = document.createElement("h4");
   var redditDescription = document.createElement("p");
-  //var a for hyperlink
-  //var img for image 
+  var redditLink = document.createElement("a");
+  var redditImage = document.createElement("img");
 
   //append the redditCard to the container
   redditContainer.append(redditCard);
@@ -46,16 +51,26 @@ function createAppendReddit () {
   redditCard.append(redditImageCard);
   redditCard.append(redditDescCard);
   
-  redditCard.append(redditCardTitle);
+  //append the image element to the image card
+  redditImageCard.append(redditImage);
+
+  //append the Title, Description, Hyperlink
+  redditDescCard.append(redditCardTitle, redditDescription, redditLink);
 
   //assign content to the html elements
-  cardTitle.textContent = title;
+  //text stuff can be set with textContent
+  redditCardTitle.textContent = title;
+  redditDescription.textContent = description;
+  redditLink.textContent = "Click here to read the Post";
+  //assign content to the img and a tags requires setting attributes
+  redditLink.setAttribute('href', link);
+  redditImage.setAttribute('src', image);
 
-  //attach a class to the container
-  //need to attach a class to redditContainer
+  //attach classes to the elements -ALL THESE CSS CLASSES ARE FOR USE WITH TAILWIND
+  //need to attach all the tailwind classes for formatting
   //redditContainer.setAttribute('class', "redditContainer");
 
-  //attach the container to the anchor point "reddit"
+  //attach the container to the HTML anchor point "reddit"
   reddit.append(redditContainer);
 
 }
