@@ -7,8 +7,60 @@
 //var date = moment(new Date())
 //datetime.textContent = (date.format('dddd, MMMM Do YYYY'));
 
+//This is a sample of tailwind css for pretty much what I am trying to do 
+{/* <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"></div>  //This is my redditContainer
+  <div class="md:flex">  //This is my redditCard
+    <div class="md:flex-shrink-0">  //This is my redditImageCard
+      <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/store.jpg" alt="Man looking at item at a store">
+    </div>
+    <div class="p-8">  //This is my redditDescCard
+      <h4 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</h4>  //This is my title
+      <p class="mt-2 text-gray-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
+      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Finding customers for your new business</a>
+    </div>
+  </div>
+</div> */}
 
-//Start of the reddit fetch, they still use the init function called at the bottom
+function createAppendReddit () {
+  // make variables of dataset items - currently hardcoded placeholders
+  var image = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg"
+  var title = "Title";
+  var description = "Description";
+  var link = "https://www.reddit.com/r/whatsthissnake/comments/o76zo7/2_snakes_seen_on_a_trail_on_cochran_shoals/"
+
+  //create the container and card elements
+  var redditContainer = document.createElement("div");
+  var redditCard = document.createElement("div")
+  var redditImageCard = document.createElement("div");
+  var redditDescCard = document.createElement("div"); 
+  //create the elements for each dataset item
+  var redditCardTitle = document.createElement("h4");
+  var redditDescription = document.createElement("p");
+  //var a for hyperlink
+  //var img for image 
+
+  //append the redditCard to the container
+  redditContainer.append(redditCard);
+
+  //append the img and description cards to the redditCard
+  redditCard.append(redditImageCard);
+  redditCard.append(redditDescCard);
+  
+  redditCard.append(redditCardTitle);
+
+  //assign content to the html elements
+  cardTitle.textContent = title;
+
+  //attach a class to the container
+  //need to attach a class to redditContainer
+  //redditContainer.setAttribute('class', "redditContainer");
+
+  //attach the container to the anchor point "reddit"
+  reddit.append(redditContainer);
+
+}
+
+//Start of the reddit fetch, it uses the init function called at the bottom
 
 //Location for which to search Reddit, this will need to be collected from the
 //user choosing an item returned by google 
@@ -28,35 +80,6 @@ var keyWord = "";
 //If we choose to use the sort by option, it would look like this
 //var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&sort=" + sortBy + "&limit=" +searchLimit;
 
-
-function createAppendReddit () {
-  // make variables of dataset items - currently hardcoded placeholders
-  var image = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg"
-  var title = "Title";
-  var description = "Description";
-  var link = "https://www.reddit.com/r/whatsthissnake/comments/o76zo7/2_snakes_seen_on_a_trail_on_cochran_shoals/"
-
-  //create the container and card elements
-  var redditContainer = document.createElement("div");
-  var redditCard = document.createElement("div") 
-  //create the elements for each dataset item
-  var cardTitle = document.createElement("h4");
-  
-  //append the dataset elements to a container
-  redditContainer.append(redditCard);
-  redditCard.append(cardTitle);
-
-  //assign content to the html elements
-  cardTitle.textContent = title;
-
-  //attach a class to the container
-  //need to attach a class to redditContainer
-  //redditContainer.setAttribute('class', "redditContainer");
-
-  //attach the container to the anchor point "reddit"
-  reddit.append(redditContainer);
-
-}
 
 function getRedditApi () {
 
