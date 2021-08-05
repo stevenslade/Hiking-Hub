@@ -4,12 +4,23 @@ var searchLocation = "Cochran Shoals";
 
 var searchLimit = 5;
 
+var keyWord = "";
+
+//REMOVE FOR PRODUCTION
+//permalink prefix - https://www.reddit.com
+
 //not yet using the sort by feature, have the option to use one of  (relevance, hot, top, new, comments)
 //var sortBy = 
 //If we choose to use the sort by option, it woudl look like this
 //var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&sort=" + sortBy + "&limit=" +searchLimit;
 
 function getRedditApi () {
+
+  //Takes a keyword (if existing and greater than a length of one) and adds it to the searchLocation, the reddit query allows for 250 chracters in the q= parameter
+  if(keyWord && keyWord.length >1) {
+    searchLocation = searchLocation + " " + keyWord;
+    console.log("searchLocationAfterConcat: ", searchLocation);
+  }
 
   //THIS PATH HAS AN S ALTHOUGH REDDIT CLAIMED IT DIDN'T WANT IT BUT I ADDED IT ANYWAY
   var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&limit=" +searchLimit;
@@ -22,21 +33,33 @@ fetch(redditQueryUrl)
   .then(function(data) {
     console.log(data.data.children);   // Logs the data to the console already cutting it down with the .data.children parameters
     console.log("title: ",data.data.children[0].data.title);
+    //More amazingness, some reddit urls are links to posts, some are links to images, its not reliable we need to use the permalink data
     console.log("url: ", data.data.children[0].data.url);
+    //So permalink should give an address fragment to which we can attach the prefix https://www.reddit.com and then get a useable link for each item
+    var permalinkHttp = "https://www.reddit.com" + data.data.children[0].data.permalink
+    console.log("permalink: ", permalinkHttp);
     console.log("Description: ", data.data.children[0].data.selftext);
+    //Thumbnail can be an image or a self reference it depends on how the user posted, it's not reliable enough for image population
+    console.log("Thumbnail: " + data.data.children[0].data.thumbnail);
 
     //Some posts do not have an image which leaves the preview parameter empty so we only get the thumbnail image if it exists
     if(data.data.children[0].data.preview) {
-    //And of course it has to be encoded because internet so we can't use it unless we decoded it.  If we try to follow it we get a 403 error.
+    //And of course it has to be encoded because reddit so we can't use it unless we decoded it.  If we try to follow it we get a 403 error.
     var imageUrlEncoded = data.data.children[0].data.preview.images[0].source.url;
     console.log("imageUrlEncoded: ", imageUrlEncoded);
     //in order to decode we need to replace "amp;s" with "s"
     var imageUrlDecoded = imageUrlEncoded.replace("amp;s", "s");
-    //This url can now be used as a link
+    //This url can now be used as a link to display an image
     console.log("imageUrlDecoded: ", imageUrlDecoded);
-
     } else {
       console.log("reddit image: ", "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg");
+    
+    
+    
+    
+    
+    
+    
     }
   })
   .catch(function(err) {
