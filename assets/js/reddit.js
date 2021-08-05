@@ -4,12 +4,14 @@ var searchLocation = "Cochran Shoals";
 
 var searchLimit = 5;
 
+//not yet using the sort by feature, have the option to use one of  (relevance, hot, top, new, comments)
 //var sortBy = 
+//If we choose to use the sort by option, it woudl look like this
+//var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&sort=" + sortBy + "&limit=" +searchLimit;
 
 function getRedditApi () {
 
-
-  //THIS PATH DOES NOT YET HAVE AN S BECAUSE REDDIT CLAIMED IT DIDN"T WANT IT
+  //THIS PATH HAS AN S ALTHOUGH REDDIT CLAIMED IT DIDN'T WANT IT BUT I ADDED IT ANYWAY
   var redditQueryUrl = "https://www.reddit.com/search.json?q=" + searchLocation + "&limit=" +searchLimit;
 
 
@@ -144,6 +146,9 @@ fetch(recGovQueryUrl)
  }
 
 
+ //THE CODE BELOW IS NEEDED EVEN IF GOV REC FETCH IS NOT USED
+
+ //calls initial functions
 function init (){
   getRedditApi ();
 
