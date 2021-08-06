@@ -1,31 +1,11 @@
 //Variables for dynamic HTML
-//All HTML variables are currentlymade in functions
+//All HTML variables are currently made in functions
 
 //The reddit portion does have four globally scoped variables declared below
 //searchLocation
 //searchLimit
 //keyWord
 //sortBy
-
-//Content to display time - Need a moment library link and an anchor point
-//var datetime = document.querySelector('#currentDay');
-
-//var date = moment(new Date())
-//datetime.textContent = (date.format('dddd, MMMM Do YYYY'));
-
-//This is a sample of tailwind css for pretty much what I am trying to do, I will copy this formatting
-{/* <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl"></div>  //This is my redditContainer
-  <div class="md:flex">  //This is my redditCard
-    <div class="md:flex-shrink-0">  //This is my redditImageCard
-      <img class="h-48 w-full object-cover md:h-full md:w-48" src="/img/store.jpg" alt="Man looking at item at a store">
-    </div>
-    <div class="p-8">  //This is my redditDescCard
-      <h4 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</h4>  //This is my title
-      <p class="mt-2 text-gray-500">Getting a new business off the ground is a lot of hard work. Here are five ideas you can use to find your first customers.</p>
-      <a href="#" class="block mt-1 text-lg leading-tight font-medium text-black hover:underline">Finding customers for your new business</a>
-    </div>
-  </div>
-</div> */}
 
 function createAppendReddit () {
   // make variables of dataset items - currently hardcoded placeholders
@@ -67,11 +47,20 @@ function createAppendReddit () {
   redditLink.setAttribute('href', link);
   redditImage.setAttribute('src', image);
 
-  //attach classes to the elements -ALL THESE CSS CLASSES ARE FOR USE WITH TAILWIND
+  //attach classes to the elements
   //need to attach all the tailwind classes for formatting
   //setAttribute will set the class and over right any existing class
-  //element.classList.add("someclass") will add a new class to the existing 
+  //element.classList.add("someclass - defined in your css") will add a new class to the existing 
   //redditContainer.setAttribute('class', "redditContainer");
+  //This formatting is currently all done in Tailwind
+  redditContainer.setAttribute('class', "max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl");
+  redditCard.setAttribute('class', "md:flex");
+  redditImageCard.setAttribute('class', "md:flex-shrink-0");
+  redditImage.setAttribute('class', "w-36 object-cover"); //md:h-full md:w-48 removed this responsive content, also was h-full w-48
+  //redditDescCard.setAttribute('class', "p-8");
+  redditCardTitle.setAttribute('class', "uppercase tracking-wide text-sm text-indigo-500 font-semibold");
+  redditDescription.setAttribute('class', "mt-2 text-gray-500");
+  redditLink.setAttribute('class',"block mt-1 text-lg leading-tight font-medium text-black hover:underline");
 
   //attach the container to the HTML anchor point "reddit"
   reddit.append(redditContainer);
@@ -116,16 +105,18 @@ fetch(redditQueryUrl)
     return res.json();   // Convert the data into JSON
   })
   .then(function(data) {
-    console.log(data.data.children);   // Logs the data to the console already cutting it down with the .data.children parameters
-    console.log("title: ",data.data.children[0].data.title);
+    //console.log(data.data.children);   // Logs the data to the console already cutting it down with the .data.children parameters
+    var title = data.data.children[0].data.title;
+    console.log("title: ", title);
     //More amazingness, some reddit urls are links to posts, some are links to images, its not reliable we need to use the permalink data
-    console.log("url: ", data.data.children[0].data.url);
+    //console.log("url: ", data.data.children[0].data.url);
     //So permalink should give an address fragment to which we can attach the prefix https://www.reddit.com and then get a useable link for each item
     var permalinkHttp = "https://www.reddit.com" + data.data.children[0].data.permalink
     console.log("permalink: ", permalinkHttp);
-    console.log("Description: ", data.data.children[0].data.selftext);
+    var description = data.data.children[0].data.selftext; 
+    console.log("Description: ", description);
     //Thumbnail can be an image or a self reference it depends on how the user posted, it's not reliable enough for image population
-    console.log("Thumbnail: " + data.data.children[0].data.thumbnail);
+    //console.log("Thumbnail: " + data.data.children[0].data.thumbnail);
 
     //Some posts do not have an image which leaves the preview parameter empty so we only get the thumbnail image if it exists
     if(data.data.children[0].data.preview) {
@@ -137,9 +128,8 @@ fetch(redditQueryUrl)
     //This url can now be used as a link to display an image
     console.log("imageUrlDecoded: ", imageUrlDecoded);
     } else {
-      
-      console.log("reddit image: ", "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg");
-    
+      var imageUrlDecoded = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg";
+      console.log("imageUrlDecoded: ", imageUrlDecoded);
     }
   })
   .catch(function(err) {
@@ -150,6 +140,16 @@ fetch(redditQueryUrl)
   createAppendReddit ()
 }
 
+//calls initial functions
+function init (){
+  getRedditApi ();
+}
+
+// calls init on page load
+init();
+
+
+
 // In the event something wants a no-cors whatever, try this
 // header parameters
 // fetch(url, {
@@ -157,112 +157,97 @@ fetch(redditQueryUrl)
 // }).then
 
 
-//This is the start of the gov rec fetches
+// //This is the start of the gov rec fetches
 
-//city and activity variables
-var city = "Atlanta";
-var activity = "Hiking";
+// //city and activity variables
+// var city = "Atlanta";
+// var activity = "Hiking";
 
-//Lat, Long and radius are being used as variables in the using Lat Long fetch
-//Lat and long for an alternate site - Mount Rushmore
-//var lat = 43.88037021;
-//var long = -103.4525186;
+// //Lat, Long and radius are being used as variables in the using Lat Long fetch
+// //Lat and long for an alternate site - Mount Rushmore
+// //var lat = 43.88037021;
+// //var long = -103.4525186;
 
-//Atlanta
-var lat = 33.7490;
-var long = -84.38798;
+// //Atlanta
+// var lat = 33.7490;
+// var long = -84.38798;
 
-//25 is max value for radius
-var radius = 25;
+// //25 is max value for radius
+// var radius = 25;
 
-//This variable is for the state search
-var state = "GA";
+// //This variable is for the state search
+// var state = "GA";
 
-//APIkey for RecGovApi
-var recGovApiKey = "0b1a638d-0a4a-4846-a876-168ebb3de233"
+// //APIkey for RecGovApi
+// var recGovApiKey = "0b1a638d-0a4a-4846-a876-168ebb3de233"
 
-function getRecGovApiUsingCity() {
+// function getRecGovApiUsingCity() {
 
-    //need a requestion url
-    var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?query=" + city + "&limit=10&offset=0&full=true&activity=" + activity + "&radius=" + radius + "&lastupdated=10-01-2018&apikey=" + recGovApiKey;
+//     //need a requestion url
+//     var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?query=" + city + "&limit=10&offset=0&full=true&activity=" + activity + "&radius=" + radius + "&lastupdated=10-01-2018&apikey=" + recGovApiKey;
     
-    //send request to recreation gov api
-    fetch(recGovQueryUrl)
-      .then(function (response) {
-         //start of code to redirect in the event of of 404 event
-        //  if (response.status !== 200) {
-        //    document.location.replace('./404.html')
-        //  } else - NEED TO INCLUDE THE LINE BELOW IN THE ELSE STATEMENT
-          return response.json();
-        })
-        .then(function (data) {
-            console.log("DataFromCityActivityPull: ", data);    
-        });
-}
+//     //send request to recreation gov api
+//     fetch(recGovQueryUrl)
+//       .then(function (response) {
+//          //start of code to redirect in the event of of 404 event
+//         //  if (response.status !== 200) {
+//         //    document.location.replace('./404.html')
+//         //  } else - NEED TO INCLUDE THE LINE BELOW IN THE ELSE STATEMENT
+//           return response.json();
+//         })
+//         .then(function (data) {
+//             console.log("DataFromCityActivityPull: ", data);    
+//         });
+// }
 
 
-//This API fetch, inputs only an activity, the state is hardcoded but can be made a variable
-function getRecGovApiUsingState() {
+// //This API fetch, inputs only an activity, the state is hardcoded but can be made a variable
+// function getRecGovApiUsingState() {
 
-    //need a requestion url
-    //This search is for the state of georgia with a hiking activity variable, it does not use Lat Long
-    var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?limit=50&offset=0&full=true&state=" + state + "&activity=" + activity + "&radius=25&lastupdated=10-01-2018&apikey=" + recGovApiKey;
+//     //need a requestion url
+//     //This search is for the state of georgia with a hiking activity variable, it does not use Lat Long
+//     var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?limit=50&offset=0&full=true&state=" + state + "&activity=" + activity + "&radius=25&lastupdated=10-01-2018&apikey=" + recGovApiKey;
     
-    //send request to recreation gov api
-    fetch(recGovQueryUrl)
-      .then(function (response) {
-         //start of code to redirect in the event of of 404 event
-        //  if (response.status !== 200) {
-        //    document.location.replace('./404.html')
-        //  } else - NEED TO INCLUDE THE LINE BELOW IN THE ELSE STATEMENT
-          return response.json();
-        })
-        .then(function (data) {
-            //console.log of the returned data
-            console.log("DataFromStateandActivity: ", data);    
-        });
- }
+//     //send request to recreation gov api
+//     fetch(recGovQueryUrl)
+//       .then(function (response) {
+//          //start of code to redirect in the event of of 404 event
+//         //  if (response.status !== 200) {
+//         //    document.location.replace('./404.html')
+//         //  } else - NEED TO INCLUDE THE LINE BELOW IN THE ELSE STATEMENT
+//           return response.json();
+//         })
+//         .then(function (data) {
+//             //console.log of the returned data
+//             console.log("DataFromStateandActivity: ", data);    
+//         });
+//  }
 
 
 
-//the function fetchs to the Government Recreation Endpoints
-//this function INPUTS LAT AND LONG, A SEARCH RADIUS and the activity as variables
-function getRecGovApiUsingLatLong() {
+// //the function fetchs to the Government Recreation Endpoints
+// //this function INPUTS LAT AND LONG, A SEARCH RADIUS and the activity as variables
+// function getRecGovApiUsingLatLong() {
 
-//need a requestion url
-//This search uses the keyword hiking in the query field and as an activity
-//var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?query=hiking&limit=10&offset=0&full=true&activity=" + activity + "&latitude=" + lat + "&longitude=" + long + "&radius=" + radius + "&lastupdated=10-01-2018&apikey=" + recGovApiKey;
+// //need a requestion url
+// //This search uses the keyword hiking in the query field and as an activity
+// //var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?query=hiking&limit=10&offset=0&full=true&activity=" + activity + "&latitude=" + lat + "&longitude=" + long + "&radius=" + radius + "&lastupdated=10-01-2018&apikey=" + recGovApiKey;
 
-//Only use one of the variables above and below - the above line uses a query field hiking, the below line uses the activity filter hiking
-var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?limit=50&offset=0&full=true&activity=" + activity + "&latitude=" + lat + "&longitude=" + long + "&radius=" + radius + "&lastupdated=10-01-2018&apikey=" + recGovApiKey;
+// //Only use one of the variables above and below - the above line uses a query field hiking, the below line uses the activity filter hiking
+// var recGovQueryUrl = "https://ridb.recreation.gov/api/v1/recareas?limit=50&offset=0&full=true&activity=" + activity + "&latitude=" + lat + "&longitude=" + long + "&radius=" + radius + "&lastupdated=10-01-2018&apikey=" + recGovApiKey;
 
-//send request to recreation gov api
-fetch(recGovQueryUrl)
-  .then(function (response) {
-     //start of code to redirect in the event of of 404 event
-    //  if (response.status !== 200) {
-    //    document.location.replace('./404.html')
-    //  } else - NEED TO INCLUDE THE LINE BELOW IN THE ELSE STATEMENT
-      return response.json();
-    })
-    .then(function (data) {
-        //console.log of the returned data
-        console.log("DataFromLatLongDataPull: ", data);    
-    });
- }
+// //send request to recreation gov api
+// fetch(recGovQueryUrl)
+//   .then(function (response) {
+//      //start of code to redirect in the event of of 404 event
+//     //  if (response.status !== 200) {
+//     //    document.location.replace('./404.html')
+//     //  } else - NEED TO INCLUDE THE LINE BELOW IN THE ELSE STATEMENT
+//       return response.json();
+//     })
+//     .then(function (data) {
+//         //console.log of the returned data
+//         console.log("DataFromLatLongDataPull: ", data);    
+//     });
+//  }
 
-
- //THE CODE BELOW IS NEEDED EVEN IF GOV REC FETCH IS NOT USED
-
- //calls initial functions
-function init (){
-  getRedditApi ();
-
-  //The three fetches below are for govrec data, turned off while I focus on reddit
-   // getRecGovApiUsingCity();
-   // getRecGovApiUsingLatLong();
-   // getRecGovApiUsingState();
-}
-
-// calls init on page load
-init();
