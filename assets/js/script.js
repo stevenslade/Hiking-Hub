@@ -33,7 +33,7 @@ function renderSearchHistory() {
         historyItem.setAttribute("class", "card green lighten-5");
         historyItem.setAttribute("value", searchHistory[i]);
         historyItem.addEventListener("click",function() {
-            getWeather(historyItem.value);
+            (historyItem.value);
         })
         historyEl.append(historyItem);
     }
@@ -41,5 +41,5 @@ function renderSearchHistory() {
 
 renderSearchHistory();
 if (searchHistory.length > 0) {
-    getWeather(searchHistory[searchHistory.length - 1]);
+    (searchHistory[searchHistory.length - 1]);
 }
