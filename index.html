@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hiking Hub</title>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
+     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
-
 <body>
-
   <nav class="nav-extended green darken-2">
     <div class="nav-wrapper">
       <a href="#!" class="brand-logo center">Hiking Hub</a>
@@ -28,14 +27,14 @@
         <div class="col s4 bg-light">
             <p class="search-header my-1">Search for a city</p>
             <div class="input-group mb-3">
-                <input id="city-input" type="text" class="form-control" placeholder="Enter city name" aria-label="Enter city name">
+                <input id="city-input" type="text" class="form-control green lighten-5" placeholder="Enter city name" aria-label="Enter city name">
                 <div class="input-group-append">
-                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                  <button class="btn waves-effect waves-light green darken-2" type="submit" id="search-button" name="action">Submit
                     
                   </button>
                 </div>
             </div>
-            <button class="btn btn-primary mb-3" type="button" id="clear-history">Clear history</button>
+            <button class="btn btn-primary mb-3 green darken-2" type="button" id="clear-history">Clear history</button>
             <form id="history"></form>
         </div>
         <div class="col s8">
@@ -51,22 +50,27 @@
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <p id="Miles_Away"></p>
+                            <p id="trail1"></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <p id="Picture"></p>
+                            <p id="trail2"></p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col s12">
-                            <p id="trail-length"></p>
+                            <p id="trail3"></p>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s12 d-flex">
-                            <p id="U"></p>
+                        <div class="col s12">
+                            <p id="trail4"></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <p id="trail5"></p>
                         </div>
                     </div>
                 </div>
@@ -77,11 +81,11 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
-                <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
-                <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
-                <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
-                <div class="col forecast bg-primary text-white ml-3 mb-3 rounded"></div>
+                <div class="col reddit bg-primary text-white ml-3 mb-3 rounded"></div>
+                <div class="col reddit bg-primary text-white ml-3 mb-3 rounded"></div>
+                <div class="col reddit bg-primary text-white ml-3 mb-3 rounded"></div>
+                <div class="col reddit bg-primary text-white ml-3 mb-3 rounded"></div>
+                <div class="col reddit bg-primary text-white ml-3 mb-3 rounded"></div>
             </div>
         </div>
     </div>
