@@ -4,7 +4,7 @@
 
 body {
     background-image: url("../images/joel-jasmin-forestbird-znoL1m6MD_k-unsplash.jpg");
-    background-repeat: no-repeat;
+    background-repeat: repeat;
     background-size: cover;
     background-position: center;
   }
@@ -12,10 +12,9 @@ body {
 .form-group {
     margin: 30px;
 }
-
 #map {
-    height: 1000px;
-    width: 1000px;
+    height: 500px;
+    width: 570px;
   }
 
   html, body {

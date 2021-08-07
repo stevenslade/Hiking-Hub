@@ -187,29 +187,33 @@ function addPlaces(places, map) {
         placesList.removeChild(placesList.firstChild);
     }
     for (const place of places) {
-        if (place.geometry && place.geometry.location) {
-            const image = {
-                url: place.icon,
-                size: new google.maps.Size(71, 71),
-                origin: new google.maps.Point(0, 0),
-                anchor: new google.maps.Point(17, 34),
-                scaledSize: new google.maps.Size(25, 25),
-            };
-            new google.maps.Marker({
-                map,
-                icon: image,
-                title: place.name,
-                position: place.geometry.location,
-            });
-            //need to clear any existing html elements
-            
-            const li = document.createElement("li");
-            li.textContent = place.name;
-            placesList.appendChild(li);
-            li.addEventListener("click", () => {
-                map.setCenter(place.geometry.location);
-            });
-        }
+      if (place.geometry && place.geometry.location) {
+        const image = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(25, 25),
+        };
+        new google.maps.Marker({
+          map,
+          icon: image,
+          title: place.name,
+          position: place.geometry.location,
+        });
+        const li = document.createElement("li");
+        li.textContent = place.name;
+        placesList.appendChild(li);
+        li.setAttribute("style", "color:white");
+        li.addEventListener("click", () => {
+          map.setCenter(place.geometry.location);
+        });
+        var btn = document.createElement("BUTTON");   // Create a <button> element
+        btn.innerHTML = "Search Reddit"; 
+        btn.setAttribute("style", "border:2px solid white");                  // Insert text
+        btn.setAttribute("style", "background: orange");               // Insert text
+        li.appendChild(btn);
+      }
     }
 }
 
