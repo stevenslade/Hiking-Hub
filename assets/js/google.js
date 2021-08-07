@@ -1,6 +1,7 @@
 var buttonEl = document.querySelector("#search-button")
 var apiUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
-const appId = "AIzaSyB4mnJeTWSHxIamtQ3v_Cf2zo9kvadCLs0";
+var lat = 33.749;
+var lon = -84.388;
 
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
@@ -46,7 +47,7 @@ const appId = "AIzaSyB4mnJeTWSHxIamtQ3v_Cf2zo9kvadCLs0";
 //   });
 // }
 
-  
+
 // function addPlaces(places, map) {
 // const placesList = document.getElementById("places");
 
@@ -87,8 +88,9 @@ var cityInput = document.getElementById('city-input')
 
 
 function getLatLong(event) {
-    event.preventDefault();
+    // event.preventDefault();
     var location = cityInput.value;
+    console.log(location);
     if (!location) {
         window.alert('Please enter a location.');
         return;
@@ -96,38 +98,37 @@ function getLatLong(event) {
     var apiUrl = "https://api.openweathermap.org";
     const appId = "971216a37d6d8963b0824cde5c5d2a68";
     var url = `${apiUrl}/data/2.5/weather?q=${location}&units=imperial&appid=${appId}`;
-    fetch(url).then(function (response) {
-            if (!response.ok) {
-                console.log(response.status);
-            }
+    fetch(url)
+        .then(function (response) {
             return response.json();
         })
-        .then(function (data) {            
-            if (data.count === 0) {
+        .then(function (data) {
+            //THESE VARIABLE PULLS FROM THE FETCH DATA
+            lat = data.coord.lat;
+            lon = data.coord.lon;
 
-                window.alert("this is not a valid location");
-            }
-            var latitude = data.coord.lat;
-            var longitude = data.coord.lon;
-            console.log(latitude)
-            console.log(longitude)
-        })
-        .catch(function () {
-            window.alert('Something went wrong');
-        })
-        return location;
+            console.log(lat);
+            console.log(lon);
+            //setLatLong(lat, lon);
+            initMap();
+            
+        });
 }
-
+// function setLatLong(lat, lon){
+//     var locationInput = new google.maps.LatLng(lat, lon);
+//     console.log(locationInput);
+//     return locationInput;
+// }
 
 function initMap() {
     console.log("initMap")
-    var location = cityInput.value;
 
     // Create the map.
-    const atlanta = new google.maps.LatLng(33.749, -84.388);
+    const atlanta = new google.maps.LatLng(lat, lon);
+    console.log(atlanta);
     const map = new google.maps.Map(document.getElementById("map"), {
-      center: atlanta,
-      zoom: 12,
+        center: atlanta,
+        zoom: 12,
     });
     console.log("map: ", map);
 
@@ -135,51 +136,56 @@ function initMap() {
     const service = new google.maps.places.PlacesService(map);
     let getNextPage;
     const moreButton = document.getElementById("more");
-  
+
     moreButton.onclick = function () {
-      moreButton.disabled = true;
-  
-      if (getNextPage) {
-        getNextPage();
-      }
-    };
-    // Perform a nearby search.  I want to try adding an optional parameter of keyword: hiking, type is optinal
-    service.nearbySearch(
-      { location: atlanta, radius: 2500, type: "park" },
-      (results, status, pagination) => {
-        if (status !== "OK" || !results) return;
-        for (let i = 0; i < results.length == 5; i++) {
-            createMarker(results[i]);
-          }
-        map.setCenter(results[0].geometry.location);
-        addPlaces(results, map);
-        moreButton.disabled = !pagination || !pagination.hasNextPage;
-  
-        if (pagination && pagination.hasNextPage) {
-          getNextPage = () => {
-            // Note: nextPage will call the same handler function as the initial call
-            pagination.nextPage();
-          };
+        moreButton.disabled = true;
+
+        if (getNextPage) {
+            getNextPage();
         }
-      }
+    };
+    // Perform a nearby search.
+    service.nearbySearch({
+            location: atlanta, //locationInput,
+            radius: 2500,
+            type: "park"
+        },
+        (results, status, pagination) => {
+            if (status !== "OK" || !results) return;
+            for (let i = 0; i < results.length == 5; i++) {
+                createMarker(results[i]);
+            }
+            map.setCenter(results[0].geometry.location);
+            addPlaces(results, map);
+            moreButton.disabled = !pagination || !pagination.hasNextPage;
+
+            if (pagination && pagination.hasNextPage) {
+                getNextPage = () => {
+                    // Note: nextPage will call the same handler function as the initial call
+                    pagination.nextPage();
+                };
+            }
+        }
     );
 
     function createMarker(place) {
         if (!place.geometry || !place.geometry.location) return;
         const marker = new google.maps.Marker({
-          map,
-          position: place.geometry.location,
+            map,
+            position: place.geometry.location,
         });
         google.maps.event.addListener(marker, "click", () => {
-          infowindow.setContent(place.name || "");
-          infowindow.open(map);
+            infowindow.setContent(place.name || "");
+            infowindow.open(map);
         });
-      }
-  }
-  
-  function addPlaces(places, map) {
+    }
+}
+
+function addPlaces(places, map) {
     const placesList = document.getElementById("places");
-  
+    while (placesList.firstChild) {
+        placesList.removeChild(placesList.firstChild);
+    }
     for (const place of places) {
       if (place.geometry && place.geometry.location) {
         const image = {
@@ -198,16 +204,21 @@ function initMap() {
         const li = document.createElement("li");
         li.textContent = place.name;
         placesList.appendChild(li);
+        li.setAttribute("style", "color:white");
         li.addEventListener("click", () => {
           map.setCenter(place.geometry.location);
         });
+        var btn = document.createElement("BUTTON");   // Create a <button> element
+        btn.innerHTML = "Search Reddit"; 
+        btn.setAttribute("style", "border:2px solid white");                  // Insert text
+        btn.setAttribute("style", "background: orange");               // Insert text
+        li.appendChild(btn);
       }
     }
-  }
-
+}
 
 function setEventListeners() {
-    buttonEl.addEventListener('click', initMap);
+    buttonEl.addEventListener('click', getLatLong);
 }
 
 function init() {
