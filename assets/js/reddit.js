@@ -42,7 +42,7 @@ function createAppendReddit (image, title, description, link) {
   //text stuff can be set with textContent
   redditCardTitle.textContent = title;
   redditDescription.textContent = description;
-  redditLink.textContent = "Click here to read the Post";
+  redditLink.textContent = "Click here to see the Post";
   //assign content to the img and a tags requires setting attributes
   redditLink.setAttribute('href', link);
   redditImage.setAttribute('src', image);
@@ -51,7 +51,7 @@ function createAppendReddit (image, title, description, link) {
   //need to attach all the tailwind classes for formatting
   //setAttribute will set the class and over right any existing class
   //element.classList.add("someclass - defined in your css") will add a new class to the existing 
-  //redditContainer.setAttribute('class', "redditContainer");
+  //redditContainer.setAttribute('class', "someclass - defined in css or your library");
   //This formatting is currently all done in Tailwind
   redditContainer.setAttribute('class', "max-w-2xl mx-auto bg-blue-300 bg-opacity-60 rounded-xl shadow-md overflow-hidden m-10 border-2 border-green-500");//max-w-md
   redditCard.setAttribute('class', "md:flex");
@@ -60,7 +60,7 @@ function createAppendReddit (image, title, description, link) {
   redditDescCard.setAttribute('class', "mx-4")
   redditCardTitle.setAttribute('class', "uppercase tracking-wide text-lg text-black font-bold");
   redditDescription.setAttribute('class', "mt-2 text-md text-black font-medium my-2");
-  redditLink.setAttribute('class',"block mt-1 text-lg leading-tight font-medium text-black hover:underline");
+  redditLink.setAttribute('class',"block mt-1 text-lg leading-tight font-bold text-black hover:underline");
 
   //attach the container to the HTML anchor point "reddit"
   reddit.append(redditContainer);
@@ -130,8 +130,8 @@ fetch(redditQueryUrl)
         //This url can now be used as a link to display an image
         //console.log("imageUrlDecoded: ", imageUrlDecoded);
       } else {
-        var imageUrlDecoded = "https://cdn.vox-cdn.com/thumbor/SfU1irp-V79tbpVNmeW1N6PwWpI=/0x0:640x427/1200x800/filters:focal(0x0:640x427)/cdn.vox-cdn.com/uploads/chorus_image/image/45970810/reddit_logo_640.0.jpg";
-        console.log("imageUrlDecoded: ", imageUrlDecoded);
+        var imageUrlDecoded = "https://static.techspot.com/images2/downloads/topdownload/2014/05/reddit.png";
+        //console.log("imageUrlDecoded: ", imageUrlDecoded);
      }
      //After fetching from the api endpoints, run the function to create and append the data
      createAppendReddit (imageUrlDecoded, title, description, permalinkHttp);
