@@ -32,7 +32,7 @@
             <div class="input-group mb-3">
                 <input id="city-input" type="text" class="form-control" placeholder="Enter city name" aria-label="Enter city name">
                 <div class="input-group-append">
-                  <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                  <button class="btn waves-effect waves-light" id="search-button" type="submit" name="action">Submit
                     
                   </button>
                 </div>
@@ -90,11 +90,12 @@
   <div id="google"><button class="searchReddit"></button></div>
   <div id="map"></div>
   <div id="places"></div>
+  <div id="more"><button>Load More</button></div>
   <div id="reddit"></div>
   <script src="./assets/js/script.js"></script>
   <script src="./assets/js/reddit.js"></script>
   <script src="./assets/js/google.js"></script>
-  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4mnJeTWSHxIamtQ3v_Cf2zo9kvadCLs0&libraries=places&callback=findLocationFromPlaces"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4mnJeTWSHxIamtQ3v_Cf2zo9kvadCLs0&libraries=places&callback=initMap"></script>
 
 </body>
 
