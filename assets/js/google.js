@@ -198,9 +198,15 @@ function initMap() {
         const li = document.createElement("li");
         li.textContent = place.name;
         placesList.appendChild(li);
+        li.setAttribute("style", "color:white");
         li.addEventListener("click", () => {
           map.setCenter(place.geometry.location);
         });
+        var btn = document.createElement("BUTTON");   // Create a <button> element
+        btn.innerHTML = "Search Reddit"; 
+        btn.setAttribute("style", "border:2px solid white");                  // Insert text
+        btn.setAttribute("style", "background: orange");               // Insert text
+        li.appendChild(btn);
       }
     }
   }
