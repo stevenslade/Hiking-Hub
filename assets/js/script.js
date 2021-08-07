@@ -8,6 +8,7 @@ const searchEl = document.getElementById("search-button");
 const clearEl = document.getElementById("clear-history");
 const nameEl = document.getElementById("city-name");
 const historyEl = document.getElementById("history");
+const placesEl = document.getElementById("places");
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 console.log(searchHistory);
 
@@ -37,6 +38,15 @@ function renderSearchHistory() {
         })
         historyEl.append(historyItem);
     }
+}
+
+
+clearEl.onclick = ()=>{
+    placesEl.innerHTML = "";
+}
+
+searchEl.onclick = ()=>{
+    placesEl.add("places"); //hide info box
 }
 
 renderSearchHistory();
