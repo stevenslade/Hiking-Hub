@@ -128,7 +128,7 @@ function initMap() {
     console.log(atlanta);
     const map = new google.maps.Map(document.getElementById("map"), {
         center: atlanta,
-        zoom: 12,
+        zoom: 9,
     });
     console.log("map: ", map);
 
@@ -147,8 +147,8 @@ function initMap() {
     // Perform a nearby search.
     service.nearbySearch({
             location: atlanta, //locationInput,
-            radius: 2500,
-            type: "park"
+            radius: 25000,
+            keyword: "hiking"
         },
         (results, status, pagination) => {
             if (status !== "OK" || !results) return;
