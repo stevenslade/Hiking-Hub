@@ -143,7 +143,7 @@ function initMap() {
         getNextPage();
       }
     };
-    // Perform a nearby search.
+    // Perform a nearby search.  I want to try adding an optional parameter of keyword: hiking, type is optinal
     service.nearbySearch(
       { location: atlanta, radius: 2500, type: "park" },
       (results, status, pagination) => {
