@@ -2,17 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hiking Hub</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inconsolata&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
 
 </head>
 <body>
@@ -45,7 +43,9 @@
                     <div class="row">
                         <div class="col s12">
                             <span id="city-name" class="city-name align-middle"></span>
-                            <img id="current-pic" src="placeholder" alt="">
+                            <img id="current-pic" src="https://via.placeholder.com/150" alt="">
+                            
+
                         </div>
                     </div>
                     <div class="row">
@@ -90,12 +90,18 @@
         </div>
     </div>
 </div>
-          <div id = "google"><button class = "searchReddit"></button></div>
-          <div id = "reddit"></div>
-          <script src="./assets/js/script.js"></script>
-          <script src="./assets/js/reddit.js"></script>
-          <script src="./assets/js/google.js"></script>
-  
+ 
+  <div id="google"><button class="searchReddit"></button></div>
+  <div id="map"></div>
+  <div id="places"></div>
+  <div id="reddit"></div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/reddit.js"></script>
+  <script src="./assets/js/google.js"></script>
+  <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4mnJeTWSHxIamtQ3v_Cf2zo9kvadCLs0&libraries=places&callback=findLocationFromPlaces"></script>
+
 </body>
 
 </html>
