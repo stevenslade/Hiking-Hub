@@ -109,13 +109,13 @@ fetch(redditQueryUrl)
   });
 }
 
-//calls initial functions
-function init (){
-  getRedditApi ();
-}
+//calls initial functions - Code merged into google file
+// function init (){
+//    getRedditApi ();
+// }
 
-// calls init on page load
-init();
+// calls init on page load - code merged into google file
+//init();
 
 
 
