@@ -10,11 +10,15 @@ const nameEl = document.getElementById("city-name");
 const historyEl = document.getElementById("history");
 const placesEl = document.getElementById("places");
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
-console.log(searchHistory);
+//console.log(searchHistory);
 
 searchEl.addEventListener("click",function() {
+
     const searchTerm = inputEl.value;
-    searchHistory.push(searchTerm);
+    //Add a conditional so that if the term is already in the history it will not push again
+    if (!searchHistory.includes(searchTerm)){ 
+        searchHistory.push(searchTerm);
+    }
     localStorage.setItem("search",JSON.stringify(searchHistory));
     renderSearchHistory();
 })
@@ -31,7 +35,7 @@ function renderSearchHistory() {
         // <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com"></input>
         historyItem.setAttribute("type","text");
         historyItem.setAttribute("readonly",true);
-        historyItem.setAttribute("class", "card green lighten-5");
+        historyItem.setAttribute("class", "card green lighten-2");
         historyItem.setAttribute("value", searchHistory[i]);
         historyItem.addEventListener("click",function() {
             (historyItem.value);
@@ -46,7 +50,7 @@ clearEl.onclick = ()=>{
 }
 
 searchEl.onclick = ()=>{
-    placesEl.add("places"); //hide info box
+    //placesEl.add("places"); //hide info box
 }
 
 renderSearchHistory();
