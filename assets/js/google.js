@@ -7,6 +7,7 @@ var today = moment();
 $("#currentDay").text(today.format("MMM Do, YYYY"));
 
 const inputEl = document.getElementById("city-input");
+// we appear to have this search button grabbed as a variable twice, its also above as buttonEl
 const searchEl = document.getElementById("search-button");
 const clearEl = document.getElementById("clear-history");
 const nameEl = document.getElementById("city-name");
@@ -29,9 +30,7 @@ clearEl.addEventListener("click",function() {
     searchHistory = [];
     renderSearchHistory();
     //Need to clear the reddit results as well
-    while (reddit.firstChild) {
-      reddit.removeChild(reddit.firstChild);
-    }
+    clearRedditContainer();
 })
 
 function renderSearchHistory() {
@@ -45,11 +44,16 @@ function renderSearchHistory() {
         historyItem.setAttribute("value", searchHistory[i]);
         historyItem.addEventListener("click",function() {
             (historyItem.value);
+        console.log("History Button");  //check for button working
+        var historicalLocation = (searchHistory[i]);
+        console.log(historicalLocation);  //check for location it is working
+        //call the main function to run with the historicalLocation - had to make a different function to pass in the city name
+        getLatLongWithHistoryButton(historicalLocation);
+        clearRedditContainer();
         })
         historyEl.append(historyItem);
     }
 }
-
 
 clearEl.onclick = ()=>{
     placesEl.innerHTML = "";
@@ -149,10 +153,43 @@ var cityInput = document.getElementById('city-input')
 //can add event listener to search input
 
 
+function getLatLongWithHistoryButton(location) {
+  // event.preventDefault();
+
+  //this value is being inside the function
+  //var location = cityInput.value;
+  console.log("locationInsideGLLWHB: ", location);
+  if (!location) {
+      window.alert('Please enter a location.');
+      return;
+  }
+  var apiUrl = "https://api.openweathermap.org";
+  const appId = "971216a37d6d8963b0824cde5c5d2a68";
+  var url = `${apiUrl}/data/2.5/weather?q=${location}&units=imperial&appid=${appId}`;
+  fetch(url)
+      .then(function (response) {
+          return response.json();
+      })
+      .then(function (data) {
+          //THESE VARIABLE PULLS FROM THE FETCH DATA
+          lat = data.coord.lat;
+          lon = data.coord.lon;
+
+          //console.log(lat);
+          //console.log(lon);
+          //setLatLong(lat, lon);
+          initMap();
+          
+      });
+}
+
+
 function getLatLong(event) {
     // event.preventDefault();
+
+    //this value is being inside the function
     var location = cityInput.value;
-    console.log(location);
+    //console.log(location);
     if (!location) {
         window.alert('Please enter a location.');
         return;
@@ -404,9 +441,7 @@ function createAppendReddit (image, title, description, link) {
 
       //before we enter the loop to create and append elements to the redditList
       //we need to clean it of any previously attached elements
-      while (reddit.firstChild) {
-        reddit.removeChild(reddit.firstChild);
-      }
+      clearRedditContainer();
 
       for(var i =0; i < data.data.children.length; i++) {
         var title = data.data.children[i].data.title;
@@ -439,4 +474,10 @@ function createAppendReddit (image, title, description, link) {
     .catch(function(err) {
       console.log(err);   // Log error if any
     });
+  }
+
+  function clearRedditContainer(){
+    while (reddit.firstChild) {
+      reddit.removeChild(reddit.firstChild);
+    }
   }
