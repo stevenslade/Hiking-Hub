@@ -337,21 +337,6 @@ function init() {
 init();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //Start Merge of reddit code
 function createAppendReddit (image, title, description, link) {
 
@@ -417,7 +402,7 @@ function createAppendReddit (image, title, description, link) {
   var redditSearchLimit = 5;
   
   //Allows use of keyword, this would be user input on html - we have not enabled this feature
-  //var redditKeyWord = "";
+  //var redditKeyWord = "Hiking";
   
   //not yet using the sort by feature, have the option to use one of  (relevance, hot, top, new, comments)
   //var sortBy = 
