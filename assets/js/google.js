@@ -213,18 +213,17 @@ function addPlaces(places, map) {
         btn.innerHTML = content;
         btn.setAttribute("style", "border:2px solid white");                  // Insert text
         btn.setAttribute("style", "background: orange");               // Insert text
-        console.log(content);
-        btn.addEventListener("click", updateLocation);
+        btn.addEventListener("click", updateRedditLocation);
         li.appendChild(btn);
       }
     }
 }
 
-function updateLocation(evt){
-  console.log("Button Working");
+function updateRedditLocation(evt){
   var buttonClicked = evt.target;
-  var location = buttonClicked.getAttribute("data-location");
-  console.log(location);
+  //redditSearchLocation is globally scoped, needed for the redditSearchAPI
+  redditSearchLocation = buttonClicked.getAttribute("data-location");
+  getRedditApi();
 }
 
 function setEventListeners() {
@@ -233,8 +232,6 @@ function setEventListeners() {
 
 function init() {
     setEventListeners();
-    getRedditApi();
-    // initMap();
 }
 
 init();
@@ -341,12 +338,26 @@ function createAppendReddit (image, title, description, link) {
       return res.json();   // Convert the data into JSON
     })
     .then(function(data) {
+
+      //before we enter the loop to create and append elements to the redditList
+      //we need to clean it of any previously attached elements
+      while (reddit.firstChild) {
+        reddit.removeChild(reddit.firstChild);
+      }
+
       for(var i =0; i < data.data.children.length; i++) {
         var title = data.data.children[i].data.title;
         //More amazingness, some reddit urls are links to posts, some are links to images, its not reliable we need to use the permalink data
         //So permalink should give an address fragment to which we can attach the prefix https://www.reddit.com and then get a useable link for each item
         var permalinkHttp = "https://www.reddit.com" + data.data.children[i].data.permalink
-        var description = data.data.children[i].data.selftext; 
+        //some descriptions are very long on reddit and we need to reduce them for our post
+        var description = data.data.children[i].data.selftext;
+        // make an array of the description string, split on spaces between words
+        var descriptionArray = description.split(" ");
+        // reduce the length to 50 words
+        descriptionArray.length = 50;
+        //set the description to the new shortened descriptionArray
+        description = descriptionArray.join(" ");
         //Thumbnail can be an image or a self reference it depends on how the user posted, it's not reliable enough for image population
         //Some posts do not have an image which leaves the preview parameter empty so we only get the thumbnail image if it exists
         if(data.data.children[i].data.preview) {
