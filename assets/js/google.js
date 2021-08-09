@@ -202,20 +202,29 @@ function addPlaces(places, map) {
           position: place.geometry.location,
         });
         const li = document.createElement("li");
-        li.textContent = place.name;
+        li.textContent = " ";  //The name of the trail is place.name, removed here and just added a space
         placesList.appendChild(li);
         li.setAttribute("style", "color:white");
         li.addEventListener("click", () => {
           map.setCenter(place.geometry.location);
         });
         var btn = document.createElement("BUTTON");   // Create a <button> element
-        btn.innerHTML = place.name; 
+        var content = `<button data-location = "${place.name}">${place.name}</button>`;
+        btn.innerHTML = content;
         btn.setAttribute("style", "border:2px solid white");                  // Insert text
         btn.setAttribute("style", "background: orange");               // Insert text
-        btn.addEventListener('click', checkButton());
+        console.log(content);
+        btn.addEventListener("click", updateLocation);
         li.appendChild(btn);
       }
     }
+}
+
+function updateLocation(evt){
+  console.log("Button Working");
+  var buttonClicked = evt.target;
+  var location = buttonClicked.getAttribute("data-location");
+  console.log(location);
 }
 
 function setEventListeners() {
@@ -229,11 +238,6 @@ function init() {
 }
 
 init();
-
-function checkButton(){
-    console.log("Button Working");
-}
-
 
 
 
@@ -315,8 +319,8 @@ function createAppendReddit (image, title, description, link) {
   //Limits search return to specified number of items, can be 5, 10, 25
   var redditSearchLimit = 5;
   
-  //Allows use of keyword, this would be user input on html
-  var redditKeyWord = "";
+  //Allows use of keyword, this would be user input on html - we have not enabled this feature
+  //var redditKeyWord = "";
   
   //not yet using the sort by feature, have the option to use one of  (relevance, hot, top, new, comments)
   //var sortBy = 
