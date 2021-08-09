@@ -3,6 +3,68 @@ var apiUrl = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
 var lat = 33.749;
 var lon = -84.388;
 
+var today = moment();
+$("#currentDay").text(today.format("MMM Do, YYYY"));
+
+const inputEl = document.getElementById("city-input");
+const searchEl = document.getElementById("search-button");
+const clearEl = document.getElementById("clear-history");
+const nameEl = document.getElementById("city-name");
+const historyEl = document.getElementById("history");
+const placesEl = document.getElementById("places");
+let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+
+searchEl.addEventListener("click",function() {
+
+    const searchTerm = inputEl.value;
+    //Add a conditional so that if the term is already in the history it will not push again
+    if (!searchHistory.includes(searchTerm)){ 
+        searchHistory.push(searchTerm);
+    }
+    localStorage.setItem("search",JSON.stringify(searchHistory));
+    renderSearchHistory();
+})
+
+clearEl.addEventListener("click",function() {
+    searchHistory = [];
+    renderSearchHistory();
+    //Need to clear the reddit results as well
+    while (reddit.firstChild) {
+      reddit.removeChild(reddit.firstChild);
+    }
+})
+
+function renderSearchHistory() {
+    historyEl.innerHTML = "";
+    for (let i=0; i<searchHistory.length; i++) {
+        const historyItem = document.createElement("input");
+        // <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com"></input>
+        historyItem.setAttribute("type","text");
+        historyItem.setAttribute("readonly",true);
+        historyItem.setAttribute("class", "card green lighten-2");
+        historyItem.setAttribute("value", searchHistory[i]);
+        historyItem.addEventListener("click",function() {
+            (historyItem.value);
+        })
+        historyEl.append(historyItem);
+    }
+}
+
+
+clearEl.onclick = ()=>{
+    placesEl.innerHTML = "";
+}
+
+searchEl.onclick = ()=>{
+    //placesEl.add("places"); //hide info box
+}
+
+renderSearchHistory();
+if (searchHistory.length > 0) {
+    (searchHistory[searchHistory.length - 1]);
+}
+
+
 // This example requires the Places library. Include the libraries=places
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
@@ -77,7 +139,7 @@ var lon = -84.388;
 // }
 
 
-///// BELOW IS NEARBSEARCH
+///// BELOW IS NEARBYSEARCH
 
 
 let map;
@@ -107,8 +169,8 @@ function getLatLong(event) {
             lat = data.coord.lat;
             lon = data.coord.lon;
 
-            console.log(lat);
-            console.log(lon);
+            //console.log(lat);
+            //console.log(lon);
             //setLatLong(lat, lon);
             initMap();
             
@@ -219,6 +281,7 @@ function addPlaces(places, map) {
     }
 }
 
+//This function is called when the reddit Button is clicked it sends the chosen location to the redditfetchquery
 function updateRedditLocation(evt){
   var buttonClicked = evt.target;
   //redditSearchLocation is globally scoped, needed for the redditSearchAPI
