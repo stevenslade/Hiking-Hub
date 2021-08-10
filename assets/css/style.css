@@ -14,7 +14,9 @@ body {
 }
 #map {
     height: 500px;
-    width: 570px;
+    width: 500px;
+    display: flex;
+  
   }
 
   html, body {
@@ -23,3 +25,16 @@ body {
     padding: 0;
   }
 
+  @media screen and (max-width:1260px) {
+    #map {
+        /* height: 200px; */
+        width: 350px;
+    }
+}
+
+@media screen and (max-width:740px) {
+    #map {
+        /* height: 200px; */
+        width: 200px;
+    }
+}
