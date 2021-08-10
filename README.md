@@ -23,7 +23,7 @@ Local storage is used to store previous city searches
 
 Link: https://stevenslade.github.io/Hiking-Hub/
 
-Screenshot: (./assets/images/HikeHubScreenshot.png)
+Screenshot: ![screenshot of homework](./assets/images/HikeHubScreenshot.png)
 
 
 
