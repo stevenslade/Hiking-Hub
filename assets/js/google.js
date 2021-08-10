@@ -16,8 +16,12 @@ const placesEl = document.getElementById("places");
 let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 searchEl.addEventListener("click",function() {
-
+    clearRedditContainer();
     const searchTerm = inputEl.value;
+    if (!searchTerm) {
+      inputEl.setAttribute("placeholder", "PLEASE ENTER A LOCATION");
+      return;
+    }
     //Add a conditional so that if the term is already in the history it will not push again
     if (!searchHistory.includes(searchTerm)){ 
         searchHistory.push(searchTerm);
@@ -44,9 +48,7 @@ function renderSearchHistory() {
         historyItem.setAttribute("value", searchHistory[i]);
         historyItem.addEventListener("click",function() {
             (historyItem.value);
-        console.log("History Button");  //check for button working
         var historicalLocation = (searchHistory[i]);
-        console.log(historicalLocation);  //check for location it is working
         //call the main function to run with the historicalLocation - had to make a different function to pass in the city name
         getLatLongWithHistoryButton(historicalLocation);
         clearRedditContainer();
@@ -59,9 +61,6 @@ clearEl.onclick = ()=>{
     placesEl.innerHTML = "";
 }
 
-searchEl.onclick = ()=>{
-    //placesEl.add("places"); //hide info box
-}
 
 renderSearchHistory();
 if (searchHistory.length > 0) {
@@ -69,78 +68,7 @@ if (searchHistory.length > 0) {
 }
 
 
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-// let map;
-// let service;
-// let infowindow;
-// var cityInput = document.getElementById('city-input')
 
-// function initMap() {
-//     var location = cityInput.value;
-//     const atlanta = new google.maps.LatLng(33.749, -84.388);
-//   infowindow = new google.maps.InfoWindow();
-//   map = new google.maps.Map(document.getElementById("map"), {
-//     center: atlanta,
-//     zoom: 12,
-//   });
-//   const request = {
-//     query: location,
-//     fields: ["name", "geometry"],
-//   };
-//   service = new google.maps.places.PlacesService(map);
-//   service.findPlaceFromQuery(request, (results, status) => {
-//     if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-//       for (let i = 0; i < results.length; i++) {
-//         createMarker(results[i]);
-//       }
-//       map.setCenter(results[0].geometry.location);
-//       addPlaces(results, map)
-//     }
-//   });
-// }
-
-// function createMarker(place) {
-//   if (!place.geometry || !place.geometry.location) return;
-//   const marker = new google.maps.Marker({
-//     map,
-//     position: place.geometry.location,
-//   });
-//   google.maps.event.addListener(marker, "click", () => {
-//     infowindow.setContent(place.name || "");
-//     infowindow.open(map);
-//   });
-// }
-
-
-// function addPlaces(places, map) {
-// const placesList = document.getElementById("places");
-
-// for (const place of places) {
-//     if (place.geometry && place.geometry.location) {
-//     const image = {
-//         url: place.icon,
-//         size: new google.maps.Size(71, 71),
-//         origin: new google.maps.Point(0, 0),
-//         anchor: new google.maps.Point(17, 34),
-//         scaledSize: new google.maps.Size(25, 25),
-//     };
-//     new google.maps.Marker({
-//         map,
-//         icon: image,
-//         title: place.name,
-//         position: place.geometry.location,
-//     });
-//     const li = document.createElement("li");
-//     li.textContent = place.name;
-//     placesList.appendChild(li);
-//     li.addEventListener("click", () => {
-//         map.setCenter(place.geometry.location);
-//     });
-//     }
-// }
-// }
 
 
 ///// BELOW IS NEARBYSEARCH
@@ -154,13 +82,9 @@ var cityInput = document.getElementById('city-input')
 
 
 function getLatLongWithHistoryButton(location) {
-  // event.preventDefault();
 
-  //this value is being inside the function
-  //var location = cityInput.value;
-  console.log("locationInsideGLLWHB: ", location);
   if (!location) {
-      window.alert('Please enter a location.');
+      //window.alert('Please enter a location.');
       return;
   }
   var apiUrl = "https://api.openweathermap.org";
@@ -175,9 +99,6 @@ function getLatLongWithHistoryButton(location) {
           lat = data.coord.lat;
           lon = data.coord.lon;
 
-          //console.log(lat);
-          //console.log(lon);
-          //setLatLong(lat, lon);
           initMap();
           
       });
@@ -189,9 +110,8 @@ function getLatLong(event) {
 
     //this value is being inside the function
     var location = cityInput.value;
-    //console.log(location);
     if (!location) {
-        window.alert('Please enter a location.');
+        //window.alert('Please enter a location.');
         return;
     }
     var apiUrl = "https://api.openweathermap.org";
@@ -206,30 +126,23 @@ function getLatLong(event) {
             lat = data.coord.lat;
             lon = data.coord.lon;
 
-            //console.log(lat);
-            //console.log(lon);
-            //setLatLong(lat, lon);
             initMap();
             
         });
 }
-// function setLatLong(lat, lon){
-//     var locationInput = new google.maps.LatLng(lat, lon);
-//     console.log(locationInput);
-//     return locationInput;
-// }
+
 
 function initMap() {
-    console.log("initMap")
+    //console.log("initMap")
 
     // Create the map.
     const atlanta = new google.maps.LatLng(lat, lon);
-    console.log(atlanta);
+    //console.log(atlanta);
     const map = new google.maps.Map(document.getElementById("map"), {
         center: atlanta,
         zoom: 9,
     });
-    console.log("map: ", map);
+    //console.log("map: ", map);
 
     // Create the places service.
     const service = new google.maps.places.PlacesService(map);
