@@ -11,9 +11,10 @@ SO THAT I can get to trails that are accessible to me and convenient.
 
 
 Technologies Used
-As A new hiker moving to a major city
-I Want to have a way to find nearby hiking trails that are close to my location
-SO THAT I can get to trails that are accessible to me and convenient. 
+Materialize CSS and Tailwind CSS are used for styling.
+Google Maps API is used for location search, Open Weather API is used to return Lat and Long, Reddit Api is used to find relevant subreddits.
+Local storage is used to store previous city searches
+
 
 
 
@@ -22,7 +23,7 @@ SO THAT I can get to trails that are accessible to me and convenient.
 
 Link: https://stevenslade.github.io/Hiking-Hub/
 
-
+Screenshot: C:\Users\pcash\Desktop\Hiking-Hub\assets\images\HikeHubScreenshot.png
 
 
 
