@@ -40,8 +40,10 @@ clearEl.addEventListener("click",function() {
 function renderSearchHistory() {
     historyEl.innerHTML = "";
     for (let i=0; i<searchHistory.length; i++) {
+        const historyContainer = document.createElement("div");
         const historyItem = document.createElement("input");
         // <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com"></input>
+        historyContainer.setAttribute("class", "historybtn");
         historyItem.setAttribute("type","text");
         historyItem.setAttribute("readonly",true);
         historyItem.setAttribute("class", "card green lighten-2");
@@ -53,7 +55,8 @@ function renderSearchHistory() {
         getLatLongWithHistoryButton(historicalLocation);
         clearRedditContainer();
         })
-        historyEl.append(historyItem);
+        historyContainer.append(historyItem);
+        historyEl.append(historyContainer);
     }
 }
 
@@ -223,8 +226,7 @@ function addPlaces(places, map) {
         var btn = document.createElement("BUTTON");   // Create a <button> element
         var content = `<button data-location = "${place.name}">${place.name}</button>`;
         btn.innerHTML = content;
-        btn.setAttribute("style", "border:2px solid white");                  // Insert text
-        btn.setAttribute("style", "background: orange");               // Insert text
+        btn.setAttribute("class", "parkbutton");
         btn.addEventListener("click", updateRedditLocation);
         li.appendChild(btn);
       }

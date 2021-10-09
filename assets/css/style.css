@@ -2,8 +2,10 @@
     font-family: 'Inconsolata', monospace;
 }
 
+/* Photo by <a href="https://unsplash.com/@isaacmsmith?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Isaac Smith</a> on <a href="https://unsplash.com/s/photos/hiking-gear?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+   */
 body {
-    background-image: url("../images/joel-jasmin-forestbird-znoL1m6MD_k-unsplash.jpg");
+    background-image: url("../images/isaac-smith-S39J1ELMRtQ-unsplash.jpg");
     background-repeat: repeat;
     background-size: cover;
     background-position: center;
@@ -31,7 +33,50 @@ h3 {
 
 }
 
+  .historybtn {
+    border-style: solid;
+    border-color: black;
+    border-width: 2px;
+    border-radius: 10px;
+    margin: 5px;
+    margin-top: 10px;
+    padding: 2px;
+    background-color: lightgreen;
+  }
+
+
+  .mapformat {
+    text-align: center;
+    border-style: solid;
+    border-color: white;
+    margin-top:50px;
+    margin-inline: auto;
+  }
+
+  .reddithead {
+    background-color: skyblue;
+    margin: 5px;
+    text-align: center;
+    border-style: solid;
+    border-color: green;
+    border-width: 2px;
+    border-radius: 10px;
+  }
+
+  .parkbutton {
+    background-color: lightslategray;
+    margin: 5px;
+    padding: 5px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    border-radius: 10px;
+    font-size: larger;
+    
+  }
+
 @media screen and (max-width:1260px) {
+
     #map {
         /* height: 200px; */
         width: 350px;

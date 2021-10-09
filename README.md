@@ -1,29 +1,64 @@
 # Hiking-Hub
 
-Description
-Hiking Hub is an application developed for hikers that live in any urban or suburban areas that want to find a hiking trail destination. The Hiking Hub will enable the user to enter their location and will provide the nearest hiking trail locations. Once the locations are populated, the user can decide on the trail they are most interested in. Once the trail button is clicked, reddit results for that trail will become visible for the user to review. 
-
-User Story
-As A new hiker moving to a major city
-I Want to have a way to find nearby hiking trails that are close to my location
-SO THAT I can get to trails that are accessible to me and convenient. 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
+## Table of Contents
 
-Technologies Used
-Materialize CSS and Tailwind CSS are used for styling.
-Google Maps API is used for location search, Open Weather API is used to return Lat and Long, Reddit Api is used to find relevant subreddits.
-Local storage is used to store previous city searches
+1. [Description](#description)
 
+1. [Technologies and Skills](#technologies)
 
+1. [Screenshot](#screenshot)
 
+1. [Link to Deployed App](#sample)
 
+1. [License](#license)
 
+1. [Collaborators](#collaborators)
 
+1. [Contact](#contact)
+
+## <a id="description"></a>Description
+
+Hiking Hub is an application for hikers looking to find out more about trails in their area.  HH allows the user to find trails around a city of their input.  A list of all nearby hiking opportunities are presented.  When the user selects a trail from the list rendered, an additional list of reddit posts related to the hiking trail is provided.  The user can then select a reddit post and read the post in detail.  This allows the user to find current or interesting hiker supplied information not availble in the parks official site. 
+
+## <a id="technologies"></a>Technologies and Skills Demonstrated
+
+* Both Materialize and Tailwind are used for styling
+* Google Maps API is used for location search
+* Open Weather API is used to return Lat and Long
+* Reddit API is used to find Trail posting
+* Local storage is used for search history
+* Github Project Management using SCRUM Methodology
+
+## <a id="screenshot"></a>Screenshot
+
+![image](./assets/images/HHSS.png)
+
+## <a id="sample"></a>Link to Github Deployment
 
 Link: https://stevenslade.github.io/Hiking-Hub/
 
-Screenshot: 
-![image](https://user-images.githubusercontent.com/82297346/128793240-fc80a398-a0f2-4ea6-bf95-70bbcb4ae8c4.png)
+## <a id="license"></a>License
+
+- MIT
+
+## <a id="collaborators"></a>Collaborators
+
+- Ben Slinde, Daniel Quigley, Sean Monahan, Phillip Carver
+
+## <a id="contact"></a>Contact
+
+- If you would like, you can connect with any of the creators through their github profiles
+
+  [Ben Slinde](https://github.com/stevenslade)
+
+  [Daniel Quigley](https://github.com/d4nnyq88)
+
+  [Sean Monahan](https://github.com/smonahan1993)
+
+  [Phillip Carver](https://github.com/carverphillip)
+  
 
 
