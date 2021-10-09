@@ -1,5 +1,5 @@
 * {
-  font-family: 'Inconsolata', monospace;
+    font-family: 'Inconsolata', monospace;
 }
 
 /* Photo by <a href="https://unsplash.com/@isaacmsmith?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Isaac Smith</a> on <a href="https://unsplash.com/s/photos/hiking-gear?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
@@ -9,23 +9,29 @@ body {
     background-repeat: repeat;
     background-size: cover;
     background-position: center;
-  }
-  
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h3 {
+    color: white;
+}
+
 .form-group {
     margin: 30px;
 }
+
 #map {
     height: 500px;
     width: 500px;
     display: flex;
-  
-  }
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-  }
+}
 
   .historybtn {
     border-style: solid;
@@ -69,7 +75,8 @@ body {
     
   }
 
-  @media screen and (max-width:1260px) {
+@media screen and (max-width:1260px) {
+
     #map {
         /* height: 200px; */
         width: 350px;

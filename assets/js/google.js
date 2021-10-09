@@ -339,6 +339,12 @@ function createAppendReddit (image, title, description, link) {
     })
     .then(function(data) {
 
+      //if there is no return from Reddit for the search item
+      if (data.data.children.length === 0) {
+        emptyRedditReturn();
+        return;
+      }
+
       //before we enter the loop to create and append elements to the redditList
       //we need to clean it of any previously attached elements
       clearRedditContainer();
@@ -380,4 +386,48 @@ function createAppendReddit (image, title, description, link) {
     while (reddit.firstChild) {
       reddit.removeChild(reddit.firstChild);
     }
+  }
+
+  function emptyRedditReturn () {
+
+    clearRedditContainer();
+
+    //create the container and card elements
+    var redditContainer = document.createElement("div");
+    var redditCard = document.createElement("div")
+    var redditImageCard = document.createElement("div");
+    var redditDescCard = document.createElement("div"); 
+    //create the elements for each dataset item
+    var redditCardTitle = document.createElement("h4");
+    var redditImage = document.createElement("img");
+  
+    //append the redditCard to the container
+    redditContainer.append(redditCard);
+  
+    //append the img and description cards to the redditCard
+    redditCard.append(redditImageCard);
+    redditCard.append(redditDescCard);
+    
+    //append the image element to the image card
+    redditImageCard.append(redditImage);
+  
+    //append the Title, Description, Hyperlink
+    redditDescCard.append(redditCardTitle);
+  
+    //assign content to the html elements
+    //text stuff can be set with textContent
+    redditCardTitle.textContent = "Very sorry, was not able to find relavent content on Reddit";
+    //assign content to the img and a tags requires setting attributes
+    redditImage.setAttribute('src', "https://static.techspot.com/images2/downloads/topdownload/2014/05/reddit.png");
+  
+    //attach classes to the elements
+    redditContainer.setAttribute('class', "max-w-2xl mx-auto bg-blue-300 bg-opacity-60 rounded-xl shadow-md overflow-hidden m-10 border-2 border-green-500");//max-w-md
+    redditCard.setAttribute('class', "md:flex");
+    redditImageCard.setAttribute('class', "md:flex-shrink-0");
+    redditImage.setAttribute('class', "h-36 w-36 object-cover"); //md:h-full md:w-48 removed this responsive content, also was h-full w-48
+    redditDescCard.setAttribute('class', "mx-4")
+    redditCardTitle.setAttribute('class', "uppercase tracking-wide text-lg text-black font-bold");
+  
+    //attach the container to the HTML anchor point "reddit"
+    reddit.append(redditContainer);
   }
